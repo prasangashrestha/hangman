@@ -13,18 +13,26 @@ class Hangman extends Component {
   /** by default, allow 6 guesses and use provided gallows images. */
   static defaultProps = {
     maxWrong: 6,
-    images: [img0, img1, img2, img3, img4, img5, img6]
+    images: [img0, img1, img2, img3, img4, img5, img6],
+    words: ['apple', 'banana', 'mango']
   };
 
   constructor(props) {
     super(props);
-    this.state = { nWrong: 0, guessed: new Set(), answer: "apple" };
+    this.state = { nWrong: 0, guessed: new Set(), answer: this.randomWord() };
     this.handleGuess = this.handleGuess.bind(this);
+    this.randomWord = this.randomWord.bind(this);
+    
   }
 
   /** guessedWord: show current-state of word:
     if guessed letters are {a,p,e}, show "app_e" for "apple"
   */
+
+  randomWord() {
+    return this.props.words[Math.floor(Math.random() * 3)]
+  }
+
   guessedWord() {
     return this.state.answer
       .split("")
@@ -68,7 +76,9 @@ class Hangman extends Component {
         {this.state.nWrong < 6 
         ?
         <Fragment>
-          [<img src={this.props.images[this.state.nWrong]} />
+          [<img 
+            src={this.props.images[this.state.nWrong]}
+            alt= {this.state.nWrong} />
           <p className='Hangman-word'>{this.guessedWord()}</p>
           <p className='Hangman-btns'>{this.generateButtons()}</p>
         </Fragment>  
