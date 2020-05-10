@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Fragment} from 'react';
 import "./Hangman.css";
 import img0 from "./0.jpg";
 import img1 from "./1.jpg";
@@ -46,6 +47,7 @@ class Hangman extends Component {
   generateButtons() {
     return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
       <button
+        key = {ltr}
         value={ltr}
         onClick={this.handleGuess}
         disabled={this.state.guessed.has(ltr)}
@@ -60,9 +62,20 @@ class Hangman extends Component {
     return (
       <div className='Hangman'>
         <h1>Hangman</h1>
-        <img src={this.props.images[this.state.nWrong]} />
-        <p className='Hangman-word'>{this.guessedWord()}</p>
-        <p className='Hangman-btns'>{this.generateButtons()}</p>
+        
+        <h3>Guessed Wrong: {this.state.nWrong}</h3>
+        
+        {this.state.nWrong < 6 
+        ?
+        <Fragment>
+          [<img src={this.props.images[this.state.nWrong]} />
+          <p className='Hangman-word'>{this.guessedWord()}</p>
+          <p className='Hangman-btns'>{this.generateButtons()}</p>
+        </Fragment>  
+        : <p> You lose. Correct word: {this.state.answer}</p>
+        }
+        
+        
       </div>
     );
   }
