@@ -22,6 +22,7 @@ class Hangman extends Component {
     this.state = { nWrong: 0, guessed: new Set(), answer: this.randomWord() };
     this.handleGuess = this.handleGuess.bind(this);
     this.randomWord = this.randomWord.bind(this);
+    this.restart = this.restart.bind(this);
     
   }
 
@@ -39,6 +40,15 @@ class Hangman extends Component {
       .map(ltr => (this.state.guessed.has(ltr) ? ltr : "_"));
   }
 
+  restart(){
+    this.setState({
+        nWrong: 0,
+        guessed: new Set(),
+        answer: this.randomWord()
+      
+    })
+  }
+
   /** handleGuest: handle a guessed letter:
     - add to guessed letters
     - if not in answer, increase number-wrong guesses
@@ -50,6 +60,8 @@ class Hangman extends Component {
       nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1)
     }));
   }
+
+  
 
   /** generateButtons: return array of letter buttons to render */
   generateButtons() {
@@ -76,13 +88,19 @@ class Hangman extends Component {
         {this.state.nWrong < 6 
         ?
         <Fragment>
-          [<img 
+          <img 
             src={this.props.images[this.state.nWrong]}
             alt= {this.state.nWrong} />
           <p className='Hangman-word'>{this.guessedWord()}</p>
           <p className='Hangman-btns'>{this.generateButtons()}</p>
         </Fragment>  
-        : <p> You lose. Correct word: {this.state.answer}</p>
+        : 
+        <Fragment>
+          <p> You lose. Correct word: {this.state.answer}</p>
+          <button className='Restart' onClick={this.restart}>Restart</button>
+        </Fragment>
+        
+          
         }
         
         

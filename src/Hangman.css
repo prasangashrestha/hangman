@@ -56,3 +56,11 @@
   color: #eeeeee;
   box-shadow: 0 6px #9e9e9e;
 }
+
+.Restart{
+  background: #ffc107;
+  color: #fff;
+  box-shadow: 0 6px #ff9800;
+  padding-top: 4px;
+  cursor: pointer;
+}
