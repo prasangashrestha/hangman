@@ -58,9 +58,13 @@
 }
 
 .Restart{
+
+  width: 100px;
   background: #ffc107;
   color: #fff;
   box-shadow: 0 6px #ff9800;
+  display: inline-block;
   padding-top: 4px;
+
   cursor: pointer;
 }
